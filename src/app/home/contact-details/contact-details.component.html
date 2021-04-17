@@ -1,0 +1,57 @@
+<div class="contact-details">
+  <div class="contacts">
+    <img class="avatar-img"
+         src="{{contact?.avatar ? contact.avatar : defaultAvatarLink}}">
+    <span class="full-name">{{contact?.first_name}} {{contact?.last_name}}</span> <br>
+  </div>
+  <div class="contact-details-form">
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" (change)="isSaveButtonDisabled = true">
+      <div formArrayName="addresses" *ngFor="let address of addressForm.get('addresses')['controls']; let i = index">
+        <p>Address #{{i + 1}}</p>
+        <div [formGroupName]="i" style="margin-bottom: 10px;">
+          <button type="button" class="remove-address-form" (click)="deleteAddress(address.value, i)">X</button>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Street 1</mat-label>
+            <input matInput placeholder="street1" formControlName="street1">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Street 2</mat-label>
+            <input matInput placeholder="street2" formControlName="street2">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Town</mat-label>
+            <input matInput placeholder="town" formControlName="town">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Country</mat-label>
+            <select matNativeControl formControlName="country">
+              <option
+                *ngFor="let country of countries"
+                [selected]="address.country == country.name"
+                [value]="country.name">
+                {{country.name}}
+              </option>
+            </select>
+          </mat-form-field>
+
+        </div>
+      </div>
+      <br>
+      <button type="button" class="add-address-button cursor-pointer"  (click)="addAddress()" style="margin-right: 5px;">+ Add Address
+      </button>
+      <button
+        type="submit"
+        class="add-address-button cursor-pointer"
+        [disabled]="!isSaveButtonDisabled"
+      >
+        Save
+      </button>
+    </form>
+  </div>
+</div>
+
+
+
+

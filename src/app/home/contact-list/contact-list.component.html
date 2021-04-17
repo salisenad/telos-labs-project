@@ -1,0 +1,25 @@
+<div class="contact-list">
+  <div class="header-list">
+    <h4>Contact List</h4>
+    <p>You have {{contacts.length}} contacts</p>
+  </div>
+  <mat-list role="list" *ngFor="let contact of contacts">
+    <mat-list-item role="listitem" class="cursor-pointer" [routerLink]="['/contact-list', contact.id]">
+      <img
+        class="img-avatar"
+        src="{{contact.avatar ? contact.avatar : contactDefaultLink}}"
+      >
+      {{contact.first_name }}
+      {{ contact.last_name}}
+    </mat-list-item>
+    <br><br><br>
+  </mat-list>
+
+  <div class="contact-form">
+    <mat-form-field class="contact-full-width">
+      <mat-label>New Contact *</mat-label>
+      <input matInput #newContact placeholder="" value="">
+    </mat-form-field>
+    <button type="submit" (click)="addNewContact(newContact); newContact.value = ''" class="add-new-contact">+</button>
+  </div>
+</div>
